@@ -1,0 +1,77 @@
+{
+  "appKeys": {},
+  "capabilities": [
+    "configurable"
+  ],
+  "companyName": "Willow Systems",
+  "longName": "Red Funnel",
+  "resources": {
+    "media": [
+      {
+        "file": "images/menu_icon.png",
+        "menuIcon": true,
+        "name": "IMAGE_MENU_ICON",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/logo_splash.png",
+        "name": "IMAGE_LOGO_SPLASH",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/tile_splash.png",
+        "name": "IMAGE_TILE_SPLASH",
+        "type": "bitmap"
+      },
+      {
+        "file": "fonts/UbuntuMono-Regular.ttf",
+        "name": "MONO_FONT_14",
+        "type": "font"
+      },
+      {
+        "file": "images/bgb.png",
+        "name": "IMAGE_BACKGROUND_BW",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/bgc.png",
+        "name": "IMAGE_BACKGROUND",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/marker.png",
+        "name": "IMAGE_MARKER",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/markerR.png",
+        "name": "IMAGE_MARKER_RED",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/markerB.png",
+        "name": "IMAGE_MARKER_BLUE",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/pointer.png",
+        "name": "IMAGE_POINTER",
+        "type": "bitmap"
+      }
+    ]
+  },
+  "sdkVersion": "3",
+  "shortName": "Red Funnel",
+  "targetPlatforms": [
+    "aplite",
+    "basalt",
+    "chalk",
+    "diorite"
+  ],
+  "uuid": "7b9191a0-0793-48ca-a8b1-798dc27dfe15",
+  "versionCode": 1,
+  "versionLabel": "0.4",
+  "watchapp": {
+    "watchface": false
+  }
+}

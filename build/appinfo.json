@@ -1,0 +1,78 @@
+{
+    "targetPlatforms": [
+        "aplite", 
+        "basalt", 
+        "chalk", 
+        "diorite"
+    ], 
+    "uuid": "7b9191a0-0793-48ca-a8b1-798dc27dfe15", 
+    "messageKeys": {}, 
+    "companyName": "Willow Systems", 
+    "versionLabel": "0.4", 
+    "capabilities": [
+        "configurable"
+    ], 
+    "sdkVersion": "3", 
+    "appKeys": {}, 
+    "longName": "Red Funnel", 
+    "versionCode": 1, 
+    "shortName": "Red Funnel", 
+    "watchapp": {
+        "watchface": false
+    }, 
+    "resources": {
+        "media": [
+            {
+                "menuIcon": true, 
+                "type": "bitmap", 
+                "name": "IMAGE_MENU_ICON", 
+                "file": "images/menu_icon.png"
+            }, 
+            {
+                "type": "bitmap", 
+                "name": "IMAGE_LOGO_SPLASH", 
+                "file": "images/logo_splash.png"
+            }, 
+            {
+                "type": "bitmap", 
+                "name": "IMAGE_TILE_SPLASH", 
+                "file": "images/tile_splash.png"
+            }, 
+            {
+                "type": "font", 
+                "name": "MONO_FONT_14", 
+                "file": "fonts/UbuntuMono-Regular.ttf"
+            }, 
+            {
+                "type": "bitmap", 
+                "name": "IMAGE_BACKGROUND_BW", 
+                "file": "images/bgb.png"
+            }, 
+            {
+                "type": "bitmap", 
+                "name": "IMAGE_BACKGROUND", 
+                "file": "images/bgc.png"
+            }, 
+            {
+                "type": "bitmap", 
+                "name": "IMAGE_MARKER", 
+                "file": "images/marker.png"
+            }, 
+            {
+                "type": "bitmap", 
+                "name": "IMAGE_MARKER_RED", 
+                "file": "images/markerR.png"
+            }, 
+            {
+                "type": "bitmap", 
+                "name": "IMAGE_MARKER_BLUE", 
+                "file": "images/markerB.png"
+            }, 
+            {
+                "type": "bitmap", 
+                "name": "IMAGE_POINTER", 
+                "file": "images/pointer.png"
+            }
+        ]
+    }
+}
