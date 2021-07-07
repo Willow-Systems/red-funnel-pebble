@@ -1,8 +1,6 @@
 {
   "appKeys": {},
-  "capabilities": [
-    "configurable"
-  ],
+  "capabilities": [],
   "companyName": "Willow Systems",
   "longName": "Red Funnel",
   "resources": {
@@ -65,7 +63,6 @@
   "targetPlatforms": [
     "aplite",
     "basalt",
-    "chalk",
     "diorite"
   ],
   "uuid": "7b9191a0-0793-48ca-a8b1-798dc27dfe15",
