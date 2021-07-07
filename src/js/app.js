@@ -1,7 +1,7 @@
 /**
- * Welcome to Pebble.js!
+ * Red Funnel V0.1
  *
- * This is where you write your app.
+ * mail@willow.systems
  */
 
 var UI = require('ui');
@@ -11,6 +11,7 @@ var Feature = require('platform/feature');
 var Light = require('ui/light');
 var Vibe = require('ui/vibe');
 
+//Caches
 var boatData = {};
 var boats = {};
 var boatIDs = [];
@@ -20,9 +21,9 @@ var cache = {
 	id: -1
 };
 
+//The size of the original map
 const env = {
 	ogMap: {
-		//1530
 		x: 1930,
 		y: 800
 	},
@@ -30,18 +31,17 @@ const env = {
 	vibeOnStatusChange: true
 }
 
+//Init UI elements
 var wind_main = new UI.Window({
 	status: false,
 	backgroundColor: 'white'
 });
-
 var bg = new UI.Image({
 	position: new Vector(0,0),
 	size: new Vector(144,144),
 	compositing: "normal",
 	image: Feature.color("IMAGE_BACKGROUND", "IMAGE_BACKGROUND_BW")
 });
-
 datarect = new UI.Rect({
 	backgroundColor: 'black',
 	position: new Vector(0,134),
@@ -83,18 +83,13 @@ function getScaledPosition(x,y) {
 		y: getScalePosSingle(y, "y")
 	}
 
-	if (out.y > 60) {
-		out.x += 5;
-	}
-	if (out.y > 75) {
-		out.x += 6;
-	}
-
+	//This is a dirty hack because the boats keep crashing into the land which they appear to do sometimes
+	if (out.y > 60) { out.x += 5 }
+	if (out.y > 75) { out.x += 6 }
 	if (out.y > 120) {
 		out.y -= 6;
 		out.x -= 4;
 	}
-	
 	return out
 }
 function getScalePosSingle(pos, xy) {
@@ -104,24 +99,7 @@ function getScalePosSingle(pos, xy) {
 		//The 125 comes from the cropping of the width of the map we did
 		og = env.ogMap.x + 125
 	}
-	var newpos = Math.ceil((pos / og) * max);
-
-	//This is a dirty hack because the boats keep crashing into the land	
-	//Basically we move them +11 if they're between 75 and 100 X
-	// if (newpos > 100 && xy == "x") {
-	// 	//Do nothing
-	// } else if (newpos > 75 && xy == "x") {
-	// 		newpos += 11;
-	// } else if (newpos > 65 && xy == "x") {
-	// 	//Make the +11 jump less sudden
-	// 	newpos += 5;
-	// }
-
-	// if (newpos > 120 && xy == "y") {
-	// 	newpos -= 6
-	// }
-	return newpos
-
+	return Math.ceil((pos / og) * max);
 }
 
 
@@ -136,7 +114,6 @@ Web({ url: 'https://rf-aisvesselmap-production.ase-bookit.p.azurewebsites.net/ho
 		var newpos = getScaledPosition(boat.marker.position.x,boat.marker.position.y)
 		var boatX = newpos.x;
 		var boatY = newpos.y;
-		console.log(boat.id + " is at " + boatX + ", " + boatY);
 
 		if (boats.hasOwnProperty(boat.id)) {
 
@@ -144,7 +121,6 @@ Web({ url: 'https://rf-aisvesselmap-production.ase-bookit.p.azurewebsites.net/ho
 			if (boat.class == "ferry") { img = "IMAGE_MARKER_BLUE" }
 			if (boat.class == "high-speed") { img = "IMAGE_MARKER_RED" }
 			boats[boat.id].image(Feature.color(img,"IMAGE_MARKER"))
-
 			boats[boat.id].animate('position', new Vector(boatX, boatY), 1000);
 
 		} else {
@@ -152,7 +128,6 @@ Web({ url: 'https://rf-aisvesselmap-production.ase-bookit.p.azurewebsites.net/ho
 			var img = "IMAGE_MARKER"
 			if (boat.class == "ferry") { img = "IMAGE_MARKER_BLUE" }
 			if (boat.class == "high-speed") { img = "IMAGE_MARKER_RED" }
- 
 			boats[boat.id] = new UI.Image({
 				position: new Vector(boatX,boatY),
 				size: new Vector(6,6),
@@ -162,6 +137,7 @@ Web({ url: 'https://rf-aisvesselmap-production.ase-bookit.p.azurewebsites.net/ho
 			});
 			boatIDs.push(boat.id);
 			wind_main.add(boats[boat.id]);
+
 		}
 
 	}
@@ -197,8 +173,6 @@ function moveBoat(direction) {
 		currentBoat = boatIDs.length - 1
 	}
 
-
-	console.log("Show info for " + boatIDs[currentBoat]);
 	getInfo(boatIDs[currentBoat]);
 
 }
@@ -221,7 +195,6 @@ function getInfo(boatID) {
 	text = text.replace(/\r/g,"");
 	text = text.replace(/,/g," ");
 	
-
 	var name = d.id
 	if (idMap.hasOwnProperty(name)) {
 		name = idMap[name]
@@ -234,20 +207,17 @@ function getInfo(boatID) {
 	pointer.animate('position', new Vector(boatX - 2, boatY - 5), 400);
 
 	var cacheCheck = d.label.info.toString()
-
 	if (cache.id != boatID) {
 		cache.id = boatID
 		cache.status = cacheCheck
 	}
 	if (cache.status != cacheCheck && cache.status != "") {
-		// Send a long vibration to the user wrist
 		Vibe.vibrate('short');
 	}
 	cache.status = cacheCheck
 
 
 }
-
 
 updateLocations();
 setInterval(updateLocations, 10000);
