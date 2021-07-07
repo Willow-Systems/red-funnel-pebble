@@ -9,11 +9,16 @@ var Vector = require('vector2');
 var Web = require('ajax');
 var Feature = require('platform/feature');
 var Light = require('ui/light');
+var Vibe = require('ui/vibe');
 
 var boatData = {};
 var boats = {};
 var boatIDs = [];
 var currentBoat = -1;
+var cache = {
+	status: "",
+	id: -1
+};
 
 const env = {
 	ogMap: {
@@ -21,7 +26,8 @@ const env = {
 		x: 1930,
 		y: 800
 	},
-	hideNotInService: false
+	hideNotInService: false,
+	vibeOnStatusChange: true
 }
 
 var wind_main = new UI.Window({
@@ -127,7 +133,6 @@ Web({ url: 'https://rf-aisvesselmap-production.ase-bookit.p.azurewebsites.net/ho
 	
 		var boat = data[i];
 		boatData[boat.id] = boat
-	//	console.log("New ferry @ " + boat.marker.position.x + " - Adjusted to " + getScaledPosition(boat.marker.position.x,"x"));
 		var newpos = getScaledPosition(boat.marker.position.x,boat.marker.position.y)
 		var boatX = newpos.x;
 		var boatY = newpos.y;
@@ -140,7 +145,7 @@ Web({ url: 'https://rf-aisvesselmap-production.ase-bookit.p.azurewebsites.net/ho
 			if (boat.class == "high-speed") { img = "IMAGE_MARKER_RED" }
 			boats[boat.id].image(Feature.color(img,"IMAGE_MARKER"))
 
-			boats[boat.id].animate('position', new Vector(boatX, boatY), 400);
+			boats[boat.id].animate('position', new Vector(boatX, boatY), 1000);
 
 		} else {
 
@@ -227,6 +232,19 @@ function getInfo(boatID) {
 	text = name + "\n" + text
 	info.text(text);
 	pointer.animate('position', new Vector(boatX - 2, boatY - 5), 400);
+
+	var cacheCheck = d.label.info.toString()
+
+	if (cache.id != boatID) {
+		cache.id = boatID
+		cache.status = cacheCheck
+	}
+	if (cache.status != cacheCheck && cache.status != "") {
+		// Send a long vibration to the user wrist
+		Vibe.vibrate('short');
+	}
+	cache.status = cacheCheck
+
 
 }
 
